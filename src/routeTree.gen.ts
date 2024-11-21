@@ -15,6 +15,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as VideosDownloadIndexImport } from './routes/videos/download/index'
 import { Route as GamesLolIndexImport } from './routes/games/lol/index'
 import { Route as DevEnvIndexImport } from './routes/dev/env/index'
+import { Route as DevEnvExecCommandCommandImport } from './routes/dev/env/exec-command.$command'
 
 // Create/Update Routes
 
@@ -39,6 +40,12 @@ const GamesLolIndexRoute = GamesLolIndexImport.update({
 const DevEnvIndexRoute = DevEnvIndexImport.update({
   id: '/dev/env/',
   path: '/dev/env/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DevEnvExecCommandCommandRoute = DevEnvExecCommandCommandImport.update({
+  id: '/dev/env/exec-command/$command',
+  path: '/dev/env/exec-command/$command',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VideosDownloadIndexImport
       parentRoute: typeof rootRoute
     }
+    '/dev/env/exec-command/$command': {
+      id: '/dev/env/exec-command/$command'
+      path: '/dev/env/exec-command/$command'
+      fullPath: '/dev/env/exec-command/$command'
+      preLoaderRoute: typeof DevEnvExecCommandCommandImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -84,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/dev/env': typeof DevEnvIndexRoute
   '/games/lol': typeof GamesLolIndexRoute
   '/videos/download': typeof VideosDownloadIndexRoute
+  '/dev/env/exec-command/$command': typeof DevEnvExecCommandCommandRoute
 }
 
 export interface FileRoutesByTo {
@@ -91,6 +106,7 @@ export interface FileRoutesByTo {
   '/dev/env': typeof DevEnvIndexRoute
   '/games/lol': typeof GamesLolIndexRoute
   '/videos/download': typeof VideosDownloadIndexRoute
+  '/dev/env/exec-command/$command': typeof DevEnvExecCommandCommandRoute
 }
 
 export interface FileRoutesById {
@@ -99,14 +115,31 @@ export interface FileRoutesById {
   '/dev/env/': typeof DevEnvIndexRoute
   '/games/lol/': typeof GamesLolIndexRoute
   '/videos/download/': typeof VideosDownloadIndexRoute
+  '/dev/env/exec-command/$command': typeof DevEnvExecCommandCommandRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dev/env' | '/games/lol' | '/videos/download'
+  fullPaths:
+    | '/'
+    | '/dev/env'
+    | '/games/lol'
+    | '/videos/download'
+    | '/dev/env/exec-command/$command'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dev/env' | '/games/lol' | '/videos/download'
-  id: '__root__' | '/' | '/dev/env/' | '/games/lol/' | '/videos/download/'
+  to:
+    | '/'
+    | '/dev/env'
+    | '/games/lol'
+    | '/videos/download'
+    | '/dev/env/exec-command/$command'
+  id:
+    | '__root__'
+    | '/'
+    | '/dev/env/'
+    | '/games/lol/'
+    | '/videos/download/'
+    | '/dev/env/exec-command/$command'
   fileRoutesById: FileRoutesById
 }
 
@@ -115,6 +148,7 @@ export interface RootRouteChildren {
   DevEnvIndexRoute: typeof DevEnvIndexRoute
   GamesLolIndexRoute: typeof GamesLolIndexRoute
   VideosDownloadIndexRoute: typeof VideosDownloadIndexRoute
+  DevEnvExecCommandCommandRoute: typeof DevEnvExecCommandCommandRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -122,6 +156,7 @@ const rootRouteChildren: RootRouteChildren = {
   DevEnvIndexRoute: DevEnvIndexRoute,
   GamesLolIndexRoute: GamesLolIndexRoute,
   VideosDownloadIndexRoute: VideosDownloadIndexRoute,
+  DevEnvExecCommandCommandRoute: DevEnvExecCommandCommandRoute,
 }
 
 export const routeTree = rootRoute
@@ -137,7 +172,8 @@ export const routeTree = rootRoute
         "/",
         "/dev/env/",
         "/games/lol/",
-        "/videos/download/"
+        "/videos/download/",
+        "/dev/env/exec-command/$command"
       ]
     },
     "/": {
@@ -151,6 +187,9 @@ export const routeTree = rootRoute
     },
     "/videos/download/": {
       "filePath": "videos/download/index.tsx"
+    },
+    "/dev/env/exec-command/$command": {
+      "filePath": "dev/env/exec-command.$command.tsx"
     }
   }
 }
