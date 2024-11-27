@@ -1,4 +1,10 @@
-import { DownloadIcon, LollipopIcon, Languages, GhostIcon } from "lucide-react";
+import {
+  DownloadIcon,
+  LollipopIcon,
+  Languages,
+  GhostIcon,
+  Bluetooth,
+} from "lucide-react";
 import { type FileRouteTypes } from "@tanstack/react-router";
 
 export interface MenuItem {
@@ -44,6 +50,16 @@ export const menu: MenuItem[] = [
         title: "环境",
         url: "/dev/env",
         icon: GhostIcon,
+      },
+    ],
+  },
+  {
+    title: "手机",
+    children: [
+      {
+        title: "蓝牙",
+        url: "/phone/bluetooth",
+        icon: Bluetooth,
       },
     ],
   },
