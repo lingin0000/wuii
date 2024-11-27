@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as VideosDownloadIndexImport } from './routes/videos/download/index'
+import { Route as PhoneBluetoothIndexImport } from './routes/phone/bluetooth/index'
 import { Route as GamesLolIndexImport } from './routes/games/lol/index'
 import { Route as DevEnvIndexImport } from './routes/dev/env/index'
 import { Route as DevEnvExecCommandCommandImport } from './routes/dev/env/exec-command.$command'
@@ -28,6 +29,12 @@ const IndexRoute = IndexImport.update({
 const VideosDownloadIndexRoute = VideosDownloadIndexImport.update({
   id: '/videos/download/',
   path: '/videos/download/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PhoneBluetoothIndexRoute = PhoneBluetoothIndexImport.update({
+  id: '/phone/bluetooth/',
+  path: '/phone/bluetooth/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesLolIndexImport
       parentRoute: typeof rootRoute
     }
+    '/phone/bluetooth/': {
+      id: '/phone/bluetooth/'
+      path: '/phone/bluetooth'
+      fullPath: '/phone/bluetooth'
+      preLoaderRoute: typeof PhoneBluetoothIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/videos/download/': {
       id: '/videos/download/'
       path: '/videos/download'
@@ -97,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dev/env': typeof DevEnvIndexRoute
   '/games/lol': typeof GamesLolIndexRoute
+  '/phone/bluetooth': typeof PhoneBluetoothIndexRoute
   '/videos/download': typeof VideosDownloadIndexRoute
   '/dev/env/exec-command/$command': typeof DevEnvExecCommandCommandRoute
 }
@@ -105,6 +120,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dev/env': typeof DevEnvIndexRoute
   '/games/lol': typeof GamesLolIndexRoute
+  '/phone/bluetooth': typeof PhoneBluetoothIndexRoute
   '/videos/download': typeof VideosDownloadIndexRoute
   '/dev/env/exec-command/$command': typeof DevEnvExecCommandCommandRoute
 }
@@ -114,6 +130,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dev/env/': typeof DevEnvIndexRoute
   '/games/lol/': typeof GamesLolIndexRoute
+  '/phone/bluetooth/': typeof PhoneBluetoothIndexRoute
   '/videos/download/': typeof VideosDownloadIndexRoute
   '/dev/env/exec-command/$command': typeof DevEnvExecCommandCommandRoute
 }
@@ -124,6 +141,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dev/env'
     | '/games/lol'
+    | '/phone/bluetooth'
     | '/videos/download'
     | '/dev/env/exec-command/$command'
   fileRoutesByTo: FileRoutesByTo
@@ -131,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dev/env'
     | '/games/lol'
+    | '/phone/bluetooth'
     | '/videos/download'
     | '/dev/env/exec-command/$command'
   id:
@@ -138,6 +157,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dev/env/'
     | '/games/lol/'
+    | '/phone/bluetooth/'
     | '/videos/download/'
     | '/dev/env/exec-command/$command'
   fileRoutesById: FileRoutesById
@@ -147,6 +167,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DevEnvIndexRoute: typeof DevEnvIndexRoute
   GamesLolIndexRoute: typeof GamesLolIndexRoute
+  PhoneBluetoothIndexRoute: typeof PhoneBluetoothIndexRoute
   VideosDownloadIndexRoute: typeof VideosDownloadIndexRoute
   DevEnvExecCommandCommandRoute: typeof DevEnvExecCommandCommandRoute
 }
@@ -155,6 +176,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DevEnvIndexRoute: DevEnvIndexRoute,
   GamesLolIndexRoute: GamesLolIndexRoute,
+  PhoneBluetoothIndexRoute: PhoneBluetoothIndexRoute,
   VideosDownloadIndexRoute: VideosDownloadIndexRoute,
   DevEnvExecCommandCommandRoute: DevEnvExecCommandCommandRoute,
 }
@@ -172,6 +194,7 @@ export const routeTree = rootRoute
         "/",
         "/dev/env/",
         "/games/lol/",
+        "/phone/bluetooth/",
         "/videos/download/",
         "/dev/env/exec-command/$command"
       ]
@@ -184,6 +207,9 @@ export const routeTree = rootRoute
     },
     "/games/lol/": {
       "filePath": "games/lol/index.tsx"
+    },
+    "/phone/bluetooth/": {
+      "filePath": "phone/bluetooth/index.tsx"
     },
     "/videos/download/": {
       "filePath": "videos/download/index.tsx"
