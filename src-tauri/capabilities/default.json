@@ -14,13 +14,19 @@
           "name": "exec-git",
           "cmd": "git",
           "args": true,
-          "sidecar": false
+          "sidecar":false
         },
         {
           "name": "exec-nvm",
           "cmd": "nvm",
-          "args": false,
-          "sidecar": false
+          "args": true,
+          "sidecar":false
+        },
+        {
+          "name": "exec-node",
+          "cmd": "node",
+          "args": true,
+          "sidecar":false
         }
       ]
     }

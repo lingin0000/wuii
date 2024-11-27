@@ -9,7 +9,11 @@
     "command": "git config --global user.email",
     "description": "获取git全局命令"
   },
-
+  {
+    "type": "node",
+    "command": "node -v",
+    "description": "查看node版本"
+  },
   {
     "type": "nvm",
     "command": "nvm list",

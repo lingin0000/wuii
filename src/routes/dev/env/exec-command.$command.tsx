@@ -23,17 +23,32 @@ export const Route = createFileRoute("/dev/env/exec-command/$command")({
 });
 
 function RouteComponent() {
+  const dataSource = Route.useLoaderData();
   const handleExecute = async (command: string) => {
-    if (command === "git") {
-      command = command.replace("git", "").trim();
-    }
-    console.log("🚀 ~ handleExecute ~ command:", command);
-    let result = await Command.create("exec-nvm", command.split(" ")).execute();
+    const cmd = command.split(" ")[0];
+    command = command.replace(cmd, "").trim();
+    console.log(cmd, "2222", command);
+    const name = `exec-${cmd}`;
+    console.log(name, command.split(" "));
+    const result = await Command.create(name, command.split(" ")).execute();
+    console.log(result);
 
-    const data = await codeToHtml(result.stdout || result.stderr, {
-      lang: "shell",
-      theme: "github-light",
-    });
+    if (!result) {
+      toast({
+        title: "执行结果",
+        description: "执行失败",
+      });
+      return;
+    }
+
+    const data = await codeToHtml(
+      result.stdout || result.stderr || "not found",
+      {
+        lang: "shell",
+        theme: "github-light",
+      }
+    );
+
     toast({
       title: "执行结果",
       description: <div dangerouslySetInnerHTML={{ __html: data }} />,
@@ -63,6 +78,5 @@ function RouteComponent() {
     },
   ];
 
-  const dataSource = Route.useLoaderData();
   return <DataTable columns={columns} data={dataSource} filter="command" />;
 }
